@@ -12,7 +12,8 @@ const {
     usuariosPut,
     usuariosPost,
     usuariosPatch,
-    usuariosLogin
+    usuariosLogin,
+    passwordForgot
 } = require ("../controllers/users")
 
 
@@ -49,7 +50,12 @@ router.delete('/:id',[
     validarCampos
 ],usuariosDelete)
 
-
+router.put('/login',[
+    check('password', 'El password no es valido').isLength({min: 6 }),
+    check('correo', 'El correo no es valido').isEmail(),
+    check('nombre', 'El nombre no es valido'),
+    validarCampos
+], passwordForgot)
 
 router.patch('/', usuariosPatch)
 

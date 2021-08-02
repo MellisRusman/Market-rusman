@@ -54,10 +54,10 @@ const usuariosPost = async(req, res = response) => {
         usuario
     })
     }
-    const usuariosLogin = async(req, res = response) => {
+const usuariosLogin = async(req, res = response) => {
 
-        let resultado = false
-        const { nombre,apellido, telefono, correo, password} = req.body
+    let resultado = false
+    const { nombre,apellido, telefono, correo, password} = req.body
 
 
     const usuario = await Promise.all([
@@ -69,7 +69,7 @@ const usuariosPost = async(req, res = response) => {
     }
     try {
         if (usuario.password === contra){
-            resultado = 'OK'
+            resultado = true
     }} catch (error) {
             throw error
         }
@@ -101,11 +101,25 @@ const usuariosPatch = (req, res = response) => {
     }
 
 
+
+const passwordForgot = async(req, res = response) =>{
+    const {correo, password} = req.body
+
+    const cambio = await Usuario.findOneAndUpdate(correo, {password: password})
+
+    res.json({cambio})
+
+}
+
+
+
+
 module.exports = {
     usuariosGet,
     usuariosDelete,
     //usuariosPut,
     usuariosPost,
     usuariosPatch,
-    usuariosLogin
+    usuariosLogin,
+    passwordForgot
 }
