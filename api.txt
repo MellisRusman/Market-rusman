@@ -1,0 +1,79 @@
+Login
+Registro
+Olvide contrasena.
+
+Una vez adentro:
+	ABM productos
+
+	ABM provedores
+
+	ABM clientes.
+
+	Un cliente, puede comprar un producto. Cuando lo compra se decrementa el stock de ese producto.
+
+	Puedo ver las compras hechas por todos los cleintes (o un cliente)
+
+	ABM Compras: puedo comprar un producto y se aumenta el stock, una compra esta asociada a un proveedor (al que le compre).
+	
+
+	ABM Cheques: entran y salen chques, me interesa saber el total de plata que tengo en cheques. 
+
+
+Endpoints:
+
+Login:
+	- POST enviando email y pass y devuelve OK o error (si quieren pueden devovler la descricion del error).
+
+Registro:
+	- POST con los datos del usuraio (nombre, apellido, telefono, email, password). Tirar error si el email ya existe.
+
+Olvide contrasena:
+	- PUT mandando email y password, y le cambia a ese email el password
+
+ABM Productos:
+	- POST para crear un producto, envio Nombre, descripcion, precio, stock.
+	- GET para traer todos los productos
+	- DELETE para borrar un producto
+	- PUT para editar un producto.
+	- GET para traerme todos los productos filtrados por todos los parametors (ej quiero los productos que tienen en el nombre
+	"coca", en la descripcion tiene "gaseosa")
+
+ABM Proveedores:
+	- POST para crear un proveedor, nombre, apellido, razon social.
+	- GET para traer todos los proveedores
+	- PUT para editar un proveedor
+	- DEL para borrar un provedor
+	- GET con filtros.
+
+ABM Clientes:
+	- idem proveedores
+	- POST, se crea una venta, una venta tiene:
+		- id cliente
+		- producto
+		- cantidad que compro
+		Este endpoint tiene que decrementar el stock cando se hace la venta, guardar la venta en la base de datos y la venta se guarda con estado Abierto.
+
+Listado de compras:
+	- GET de compras
+	- poder filtrarlas (GET)
+
+
+ABM Cheques:
+	- idem proveedores (GET, POST, DELETE, PUT).
+	- un cheque es 
+		fecha
+		monto
+		remitente
+
+ABM Compras:
+	- POST para comprar producto
+	una compra tiene:
+		- id provedor
+		- id producto le compro
+		- cuantos le compro
+	CUando se hace la compra, se aumenta el stock de este producto
+	poder listar (GET) todas las compras.
+
+
+Estados de venta:
+	- PUT de una venta, para poder cambiarle el estado.
