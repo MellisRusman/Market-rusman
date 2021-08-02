@@ -4,6 +4,11 @@ const Usuario = require('../models/usuario')
 
 const existeMail = async(correo = '')=>{
     const existEmail = await Usuario.findOne({correo})
+    if (!existEmail){
+        res.json({
+            msg: `El correo ${correo} no existe en nuestra DB`
+        })
+    }
     if (existEmail){
         throw new Error(`El correo ${correo} ya existe en nuestra DB, por favor ingrese uno nuevo`)
 }
