@@ -50,7 +50,7 @@ router.delete('/:id',[
     validarCampos
 ],usuariosDelete)
 
-router.put('/login',[
+router.put('/login-forgot',[
     check('password', 'El password no es valido').isLength({min: 6 }),
     check('correo', 'El correo no es valido').isEmail(),
     check('nombre', 'El nombre no es valido'),

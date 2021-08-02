@@ -105,7 +105,12 @@ const usuariosPatch = (req, res = response) => {
 const passwordForgot = async(req, res = response) =>{
     const {correo, password} = req.body
 
-    const cambio = await Usuario.findOneAndUpdate(correo, {password: password})
+    if (password){
+        const salt = bcryptjs.genSaltSync();
+        contra = bcryptjs.hashSync(password, salt)
+    }
+
+    const cambio = await Usuario.findOneAndUpdate(correo, {password: contra})
 
     res.json({cambio})
 

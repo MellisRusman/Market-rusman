@@ -27,7 +27,7 @@ Login:
 Registro: //TERMINADO
 	- POST con los datos del usuraio (nombre, apellido, telefono, email, password). Tirar error si el email ya existe.
 
-Olvide contrasena:
+Olvide contrasena: //TERMINADO
 	- PUT mandando email y password, y le cambia a ese email el password
 
 ABM Productos:
