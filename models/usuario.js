@@ -14,6 +14,14 @@ const UsuarioSchema = Schema({
     password:{
         type:String,
         required:[true,'La contraseña es obligatoria'],
+    },
+    telefono:{
+        type:String,
+        required:[true,'El telefono es obligatorio'],
+    },
+    apellido:{
+        type:String,
+        required:[true,'El apellido es obligatorio'],
     }
 })
 

@@ -2,7 +2,6 @@ const {request , response} = require('express');
 const Usuario = require('../models/usuario');
 const bcryptjs = require("bcryptjs");
 const { validationResult } = require('express-validator');
-const { rawListeners } = require('../models/usuario');
 
 
 const usuariosGet = async(req = request, res = response) => {
@@ -16,24 +15,33 @@ const usuariosGet = async(req = request, res = response) => {
 
 }
 
-const usuariosPut = async(req , res = response) => {
-    const {id} = req.params;
-    const {_id, password,correo, ...resto} = req.body;
-    if (password){
-        const salt = bcryptjs.genSaltSync();
-        resto.password = bcryptjs.hashSync(password, salt)
-    }
-
-
-    const usuario = await Usuario.findByIdAndUpdate(id , resto)
-    res.json(usuario)
-}
+// const usuariosPut = async(req , res = response) => {
+//     let resultado = false
+//     const {id} = req.params;
+//     const usuarios = await Promise.all([
+//         Usuario.find({})
+//     ])
+//     if (usuario){
+//         msg:"El usuario es correcto"
+//     }
+//     const {_id, password,correo, ...resto} = req.body;
+//     if (password){
+//         const salt = bcryptjs.genSaltSync();
+//         resto.password = bcryptjs.hashSync(password, salt)
+//     }
+//     if (Usuario.correo === correo ){
+//         let resultado = true
+//     }
+//     const usuario = await Usuario.findByIdAndUpdate(id , resto)
+//     res.json(usuario, resultado )
+// }
 
 const usuariosPost = async(req, res = response) => {
 
-    const { nombre, correo, password} = req.body
-    const usuario = new Usuario({nombre, correo, password})
+    const { nombre,apellido, telefono, correo, password} = req.body
+    const usuario = new Usuario({nombre,apellido, telefono, correo, password})
     //verificar si el correo existe
+
 
     //encriptar la contrasena
     const salt = bcryptjs.genSaltSync();
@@ -49,7 +57,7 @@ const usuariosPost = async(req, res = response) => {
     const usuariosLogin = async(req, res = response) => {
 
         let resultado = false
-        const { correo, password} = req.body
+        const { nombre,apellido, telefono, correo, password} = req.body
 
 
     const usuario = await Promise.all([
@@ -57,13 +65,17 @@ const usuariosPost = async(req, res = response) => {
     ])
     if (password){
         const salt = bcryptjs.genSaltSync();
-        dos = bcryptjs.hashSync(password, salt)
+        contra = bcryptjs.hashSync(password, salt)
     }
-    if (usuario.password == dos){
-        resultado = true
-    }
+    try {
+        if (usuario.password === contra){
+            resultado = 'OK'
+    }} catch (error) {
+            throw error
+        }
+
     res.json({
-        dos,
+        contra,
         resultado
     })
     }
@@ -92,7 +104,7 @@ const usuariosPatch = (req, res = response) => {
 module.exports = {
     usuariosGet,
     usuariosDelete,
-    usuariosPut,
+    //usuariosPut,
     usuariosPost,
     usuariosPatch,
     usuariosLogin

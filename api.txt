@@ -24,7 +24,7 @@ Endpoints:
 Login:
 	- POST enviando email y pass y devuelve OK o error (si quieren pueden devovler la descricion del error).
 
-Registro:
+Registro: //TERMINADO
 	- POST con los datos del usuraio (nombre, apellido, telefono, email, password). Tirar error si el email ya existe.
 
 Olvide contrasena:
