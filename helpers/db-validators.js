@@ -1,4 +1,5 @@
 const Usuario = require('../models/usuario')
+const Producto = require('../models/producto')
 
 
 
@@ -24,4 +25,11 @@ const esUsuarioMongo = async(id)=>{
     }
 }
 
-module.exports = { existeMail, esUsuarioMongo, existeMailPass}
+const esProductoMongo = async(id)=>{
+    const existeProd = await Producto.findById(id)
+    if (!existeProd){
+        return new Error(`El id: ${id} no existe en la base de datos`)
+    }
+}
+
+module.exports = { existeMail, esUsuarioMongo, existeMailPass, esProductoMongo}

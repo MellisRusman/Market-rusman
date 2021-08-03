@@ -156,6 +156,16 @@ const productosGet = async(req = request, res = response) => {
 
 }
 
+const productosDelete = async(req, res = response) => {
+
+    const {id} = req.params
+
+    //Borrado fisico
+
+    const usuario = await Producto.findByIdAndDelete(id)
+
+    res.json({usuario})
+}
 
 
 
@@ -189,5 +199,6 @@ module.exports = {
     usuariosLogin,
     passwordForgot,
     crearProducto,
-    productosGet
+    productosGet,
+    productosDelete
 }

@@ -4,7 +4,7 @@ const { check } = require("express-validator")
 
 
 const { validarCampos } = require('../middlewars/validar-campos')
-const {existeMail, esUsuarioMongo, existeMailPass} = require('../helpers/db-validators')
+const {existeMail, esUsuarioMongo, existeMailPass, esProductoMongo} = require('../helpers/db-validators')
 
 const {
     usuariosGet,
@@ -14,7 +14,8 @@ const {
     usuariosLogin,
     passwordForgot,
     crearProducto,
-    productosGet
+    productosGet,
+    productosDelete
 } = require ("../controllers/users")
 
 
@@ -83,6 +84,22 @@ router.post('/producto', [
 // - GET para traer todos los productos
 
 router.get('/producto', productosGet)
+
+
+// - DELETE para borrar un producto
+
+
+router.delete('/producto/:id',[
+
+    check('id', 'El id no es valido').isMongoId(),
+    check('id', 'El id no fue enviado').notEmpty(),
+    check('id').custom(esProductoMongo),
+    validarCampos
+
+],productosDelete)
+
+
+
 
 ///-------------------------- RUTAS DE PROVEEDORES --------------------------///
 
