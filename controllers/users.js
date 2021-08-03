@@ -66,8 +66,10 @@ const usuariosLogin = async(req = request , res = response) => {
 
     if (usuario){
         if(password){
-        const salt = bcryptjs.genSaltSync();
-        contra = bcryptjs.hashSync(password, salt)
+            const salt = bcryptjs.genSaltSync();
+            contra = bcryptjs.hashSync(password, salt)
+        }else{
+            resultado = await new Error(`Error`)
         }
         resultado = 'OK'
     }

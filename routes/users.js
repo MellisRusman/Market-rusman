@@ -31,7 +31,9 @@ router.post('/',[
 
 router.post('/login',[
     check('password', 'El password no es valido').isLength({min: 6 }),
+    check('password', 'El password tiene que ser enviado').notEmpty(),
     check('correo', 'El correo no es valido').isEmail(),
+    check('correo', 'El correo tiene que ser enviado').notEmpty(),
     validarCampos
 ], usuariosLogin)
 
