@@ -56,35 +56,30 @@ const usuariosPost = async(req = request, res = response) => {
     }
 
 const usuariosLogin = async(req = request , res = response) => {
-    let resultado = false
+
+    let resultado = 'Error'
     const {correo, password} = req.body
 
-    const usuario = await Promise.all([
-        Usuario.find({correo})
-    ])
-    try {
-        if (usuario){
-            if(password){
-            const salt = bcryptjs.genSaltSync();
-            contra = bcryptjs.hashSync(password, salt)
-            }
-            if (usuario.password === contra){
-                    resultado = true
-            }
+
+    const usuario = Usuario.findOne({correo}, {password})
+
+
+    if (usuario){
+        if(password){
+        const salt = bcryptjs.genSaltSync();
+        contra = bcryptjs.hashSync(password, salt)
         }
-        res.json({
-            contra,
-            resultado
-        })
-    } catch (error) {
-        if (!usuario){
-            throw new Error(`El correo: ${correo} no existe en la base de datos`)
-        }
+        resultado = 'OK'
     }
 
-
+    res.json({
+        contra,
+        resultado
+    })
 
 }
+
+
 
 const usuariosDelete = async(req, res = response) => {
 
