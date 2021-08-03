@@ -12,7 +12,9 @@ const {
     usuariosPost,
     usuariosPatch,
     usuariosLogin,
-    passwordForgot
+    passwordForgot,
+    crearProducto,
+    productosGet
 } = require ("../controllers/users")
 
 
@@ -67,7 +69,20 @@ router.patch('/', usuariosPatch)
 
 ///-------------------------- RUTAS DE PRODUCTOS --------------------------///
 
+// - POST para crear un producto, envio Nombre, descripcion, precio, stock.
 
+router.post('/producto', [
+    check('nombre', 'El nombre no es valido').notEmpty(),
+    check('descripcion', 'La descripcion no es valida').notEmpty(),
+    check('precio', 'El precio no es valido').notEmpty(),
+    check('stock', 'El stock no es valido').notEmpty(),
+    validarCampos
+], crearProducto)
+
+
+// - GET para traer todos los productos
+
+router.get('/producto', productosGet)
 
 ///-------------------------- RUTAS DE PROVEEDORES --------------------------///
 

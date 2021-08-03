@@ -1,7 +1,14 @@
 const {request , response} = require('express');
 const Usuario = require('../models/usuario');
+const Producto = require('../models/producto');
 const bcryptjs = require("bcryptjs");
 const { validationResult } = require('express-validator');
+
+
+
+
+
+//------------------------ FUNCIONES DE USUARIOS ------------------------//
 
 
 const usuariosGet = async(req = request, res = response) => {
@@ -121,6 +128,57 @@ const passwordForgot = async(req, res = response) =>{
 
 
 
+//------------------------ FUNCIONES DE PRODUCTOS ------------------------//
+
+
+const crearProducto = async(req = request, res = response) => {
+
+    const {nombre,descripcion, precio, stock} = req.body
+    const producto = new Producto({nombre,descripcion, precio, stock})
+
+
+    //guardar en DB
+    await producto.save()
+
+    res.json({
+        producto
+    })
+    }
+
+const productosGet = async(req = request, res = response) => {
+
+    const productos = await Promise.all([
+        Producto.find({})
+    ])
+    res.json({
+        productos
+    })
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = {
     usuariosGet,
@@ -129,5 +187,7 @@ module.exports = {
     usuariosPost,
     usuariosPatch,
     usuariosLogin,
-    passwordForgot
+    passwordForgot,
+    crearProducto,
+    productosGet
 }

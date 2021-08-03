@@ -1,7 +1,7 @@
 const { Schema, model} = require('mongoose');
 
 
-const UsuarioSchema = Schema({
+const ProductoSchema = Schema({
     nombre:{
         type:String,
         required:[true,'El nombre es obligatorio'],
@@ -20,7 +20,7 @@ const UsuarioSchema = Schema({
     }
 })
 
-UsuarioSchema.methods.toJSON = function () {
+ProductoSchema.methods.toJSON = function () {
     const {__v, ...perfil} = this.toObject()
     return perfil
 }
