@@ -36,7 +36,7 @@ const usuariosGet = async(req = request, res = response) => {
 //     res.json(usuario, resultado )
 // }
 
-const usuariosPost = async(req, res = response) => {
+const usuariosPost = async(req = request, res = response) => {
 
     const { nombre,apellido, telefono, correo, password} = req.body
     const usuario = new Usuario({nombre,apellido, telefono, correo, password})
@@ -54,31 +54,37 @@ const usuariosPost = async(req, res = response) => {
         usuario
     })
     }
-const usuariosLogin = async(req, res = response) => {
 
+const usuariosLogin = async(req = request , res = response) => {
     let resultado = false
-    const { nombre,apellido, telefono, correo, password} = req.body
-
+    const {correo, password} = req.body
 
     const usuario = await Promise.all([
         Usuario.find({correo})
     ])
-    if (password){
-        const salt = bcryptjs.genSaltSync();
-        contra = bcryptjs.hashSync(password, salt)
-    }
     try {
-        if (usuario.password === contra){
-            resultado = true
-    }} catch (error) {
-            throw error
+        if (usuario){
+            if(password){
+            const salt = bcryptjs.genSaltSync();
+            contra = bcryptjs.hashSync(password, salt)
+            }
+            if (usuario.password === contra){
+                    resultado = true
+            }
         }
-
-    res.json({
-        contra,
-        resultado
-    })
+        res.json({
+            contra,
+            resultado
+        })
+    } catch (error) {
+        if (!usuario){
+            throw new Error(`El correo: ${correo} no existe en la base de datos`)
+        }
     }
+
+
+
+}
 
 const usuariosDelete = async(req, res = response) => {
 

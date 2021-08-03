@@ -4,12 +4,11 @@ const { check } = require("express-validator")
 
 
 const { validarCampos } = require('../middlewars/validar-campos')
-const {existeMail, esUsuarioMongo} = require('../helpers/db-validators')
+const {existeMail, esUsuarioMongo, existeMailPass} = require('../helpers/db-validators')
 
 const {
     usuariosGet,
     usuariosDelete,
-    usuariosPut,
     usuariosPost,
     usuariosPatch,
     usuariosLogin,
@@ -21,11 +20,6 @@ const router = Router()
 
 router.get('/', usuariosGet)
 
-router.post('/:password',[
-    check('correo', 'El correo no es valido').isEmail(),
-    check('correo').custom(existeMail),
-    validarCampos
-],usuariosPost )
 
 router.post('/',[
     check('nombre', 'El nombre no es valido').notEmpty(),
@@ -38,7 +32,6 @@ router.post('/',[
 router.post('/login',[
     check('password', 'El password no es valido').isLength({min: 6 }),
     check('correo', 'El correo no es valido').isEmail(),
-    check('nombre', 'El nombre no es valido'),
     validarCampos
 ], usuariosLogin)
 
@@ -53,7 +46,7 @@ router.delete('/:id',[
 router.put('/login-forgot',[
     check('password', 'El password no es valido').isLength({min: 6 }),
     check('correo', 'El correo no es valido').isEmail(),
-    check('correo').custom(existeMail),
+    check('correo').custom(existeMailPass),
     validarCampos
 ], passwordForgot)
 
