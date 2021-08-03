@@ -6,23 +6,22 @@ const UsuarioSchema = Schema({
         type:String,
         required:[true,'El nombre es obligatorio'],
     },
-    proveedor:{
-        type:String,
-        required:[true,'El proveedor es obligatorio'],
-        unique: true
-    },
     descripcion:{
         type:String,
         required:[true,'La descripcion es obligatoria'],
     },
-    color:{
+    precio:{
         type:String,
-        required:[true,'El color es obligatorio'],
+        required:[true,'El precio es obligatorio'],
+    },
+    stock:{
+        type:String,
+        required:[true,'El stock es obligatorio'],
     }
 })
 
 UsuarioSchema.methods.toJSON = function () {
-    const {__v, proveedor, ...perfil} = this.toObject()
+    const {__v, ...perfil} = this.toObject()
     return perfil
 }
 
