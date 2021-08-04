@@ -32,9 +32,9 @@ const proveedorGet = async(req = request, res = response) => {
 
 const proveedorEditar = async(req, res = response) =>{
     const { id } = req.params
-    const { nombre , apellido, razonSocial} = req.body
+    const { nombre , apellido, razonSocial, estado = true} = req.body
     // cambio de nombre o appelido del provedor o razon social
-    const cambio = await Proveedor.findOneAndUpdate(id, { nombre , apellido, razonSocial})
+    const cambio = await Proveedor.findOneAndUpdate(id, { nombre , apellido, razonSocial, estado})
 
     res.json({cambio})
 

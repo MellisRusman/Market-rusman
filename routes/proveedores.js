@@ -45,8 +45,10 @@ router.put('/proveedor/editar/:id',[
 
 
 
-
 // - DEL para borrar un provedor
+
+
+
 // - GET con filtros.
 
 

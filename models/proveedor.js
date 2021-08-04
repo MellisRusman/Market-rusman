@@ -17,6 +17,10 @@ const ProveedorSchema = Schema({
         required:[true,'La razon social es obligatoria'],
         emun: ['S.A', 'S.R.L']
     },
+    estado:{
+        type:Boolean,
+        default:true
+    }
 
 })
 
