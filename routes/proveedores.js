@@ -39,7 +39,7 @@ router.get('/proveedor', proveedorGet)
 router.put('/proveedor/editar/:id',[
     check('id', 'El id no es valido').isMongoId(),
     check('id').custom(esProveedorMongo),
-    check('razonSocial').notEmpty(),
+    //check('razonSocial').notEmpty(),
     validarCampos
 ], proveedorEditar)
 

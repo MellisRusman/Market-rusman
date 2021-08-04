@@ -1,5 +1,6 @@
 const Usuario = require('../models/usuario')
 const Producto = require('../models/producto')
+const Proveedor = require('../models/proveedor')
 
 
 
@@ -32,7 +33,7 @@ const esProductoMongo = async(id)=>{
     }
 }
 
-const esProveedorMongo = async(id)=>{
+const esProveedorMongo = async(id) => {
     const existeProv = await Proveedor.findById(id)
     if (!existeProv){
         return new Error(`El id: ${id} no existe en la base de datos`)

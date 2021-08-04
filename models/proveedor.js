@@ -15,7 +15,6 @@ const ProveedorSchema = Schema({
     razonSocial:{
         type:String,
         required:[true,'La razon social es obligatoria'],
-        unique: true,
         emun: ['S.A', 'S.R.L']
     },
 
