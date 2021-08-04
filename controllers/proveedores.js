@@ -42,11 +42,24 @@ const proveedorEditar = async(req, res = response) =>{
 
 
 
+const proveedorDelete = async(req = request, res = response) => {
+    const {id} = req.params
+
+    // cambio de estado de true a false
+
+    const proveedor = await Proveedor.findByIdAndUpdate(id, {estado: false})
+
+    res.json({proveedor})
+}
+
+
+
 
 
 
 module.exports = {
     crearProveedor,
     proveedorGet,
-    proveedorEditar
+    proveedorEditar,
+    proveedorDelete
 }

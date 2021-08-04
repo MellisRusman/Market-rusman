@@ -9,7 +9,8 @@ const {esProveedorMongo} = require('../helpers/db-validators')
 const {
     crearProveedor,
     proveedorGet,
-    proveedorEditar
+    proveedorEditar,
+    proveedorDelete
 } = require ("../controllers/proveedores")
 
 
@@ -47,7 +48,12 @@ router.put('/proveedor/editar/:id',[
 
 // - DEL para borrar un provedor
 
+router.delete('/proveedor/:id',[
+    check('id', 'El id no es valido').isMongoId(),
+    check('id').custom(esProveedorMongo),
+    validarCampos
 
+],proveedorDelete)
 
 // - GET con filtros.
 
