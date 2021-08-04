@@ -16,7 +16,8 @@ const {
     crearProducto,
     productosGet,
     productosDelete,
-    productosEditar
+    productosEditar,
+    filtrarProductos
 } = require ("../controllers/users")
 
 
@@ -106,6 +107,10 @@ router.put('/producto/editar/:id',[
     validarCampos
 ], productosEditar)
 
+
+// - GET para filtrar productos
+
+router.get('/producto/filtrar', filtrarProductos)
 
 
 

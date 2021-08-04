@@ -176,6 +176,24 @@ const productosEditar = async(req, res = response) =>{
 
 }
 
+const filtrarProductos = async(req = request, res = response) => {
+
+    const {limite = 3, desde = 0} = req.query
+    const { precio , stock, nombre}  = req.body
+
+    const [total , productos] = await Promise.all([
+        Producto.countDocuments({precio, stock, nombre}),
+        Producto.find({precio, stock, nombre})
+            .skip(Number(desde))
+            .limit(Number(limite))
+    ])
+    res.json({
+        total,
+        productos
+    })
+
+}
+
 
 
 
@@ -207,5 +225,6 @@ module.exports = {
     crearProducto,
     productosGet,
     productosDelete,
-    productosEditar
+    productosEditar,
+    filtrarProductos
 }
