@@ -159,14 +159,22 @@ const productosGet = async(req = request, res = response) => {
 const productosDelete = async(req = request, res = response) => {
         const {id} = req.params
 
-        //Borrado fisico
+        // cambio de estado de true a false
 
         const usuario = await Producto.findByIdAndUpdate(id, {estado: false})
 
         res.json({usuario})
     }
 
+const productosEditar = async(req, res = response) =>{
+    const { id } = req.params
+    const { precio} = req.body
+    // cambio de precio, el stock cambia despues (ABM compras, ABM clientes)
+    const cambio = await Producto.findOneAndUpdate(id, {precio})
 
+    res.json({cambio})
+
+}
 
 
 
@@ -198,5 +206,6 @@ module.exports = {
     passwordForgot,
     crearProducto,
     productosGet,
-    productosDelete
+    productosDelete,
+    productosEditar
 }

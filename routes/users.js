@@ -15,7 +15,8 @@ const {
     passwordForgot,
     crearProducto,
     productosGet,
-    productosDelete
+    productosDelete,
+    productosEditar
 } = require ("../controllers/users")
 
 
@@ -95,6 +96,15 @@ router.delete('/producto/:id',[
     validarCampos
 
 ],productosDelete)
+
+// - PUT para editar un producto
+
+router.put('/producto/editar/:id',[
+    check('id', 'El id no es valido').isMongoId(),
+    check('id').custom(esProductoMongo),
+    check('newPrice').isEmpty(),
+    validarCampos
+], productosEditar)
 
 
 
