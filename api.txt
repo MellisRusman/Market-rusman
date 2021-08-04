@@ -53,9 +53,8 @@ ABM Clientes:
 		- cantidad que compro
 		Este endpoint tiene que decrementar el stock cando se hace la venta, guardar la venta en la base de datos y la venta se guarda con estado Abierto.
 
-Listado de compras:
-	- GET de compras
-	- poder filtrarlas (GET)
+Estados de venta:
+	- PUT de una venta, para poder cambiarle el estado.
 
 
 ABM Cheques:
@@ -75,5 +74,6 @@ ABM Compras:
 	poder listar (GET) todas las compras.
 
 
-Estados de venta:
-	- PUT de una venta, para poder cambiarle el estado.
+Listado de compras:
+	- GET de compras
+	- poder filtrarlas (GET)
