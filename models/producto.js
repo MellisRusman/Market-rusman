@@ -17,6 +17,10 @@ const ProductoSchema = Schema({
     stock:{
         type:String,
         required:[true,'El stock es obligatorio'],
+    },
+    estado:{
+        type:Boolean,
+        default:true
     }
 })
 

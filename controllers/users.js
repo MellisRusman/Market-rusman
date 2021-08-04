@@ -156,17 +156,15 @@ const productosGet = async(req = request, res = response) => {
 
 }
 
-const productosDelete = async(req, res = response) => {
+const productosDelete = async(req = request, res = response) => {
+        const {id} = req.params
 
-    const {id} = req.params
+        //Borrado fisico
 
-    //Borrado fisico
+        const usuario = await Producto.findByIdAndUpdate(id, {estado: false})
 
-    const usuario = await Producto.findByIdAndDelete(id)
-
-    res.json({usuario})
-}
-
+        res.json({usuario})
+    }
 
 
 

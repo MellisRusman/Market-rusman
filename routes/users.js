@@ -90,9 +90,7 @@ router.get('/producto', productosGet)
 
 
 router.delete('/producto/:id',[
-
     check('id', 'El id no es valido').isMongoId(),
-    check('id', 'El id no fue enviado').notEmpty(),
     check('id').custom(esProductoMongo),
     validarCampos
 
