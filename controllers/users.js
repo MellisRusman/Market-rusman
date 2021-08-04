@@ -103,13 +103,6 @@ const usuariosDelete = async(req, res = response) => {
     res.json({usuario})
 }
 
-const usuariosPatch = (req, res = response) => {
-    res.json({
-        ok: 'pacho',
-        msg : 'patch - controller'
-    })
-    }
-
 
 
 const passwordForgot = async(req, res = response) =>{
@@ -131,68 +124,6 @@ const passwordForgot = async(req, res = response) =>{
 //------------------------ FUNCIONES DE PRODUCTOS ------------------------//
 
 
-const crearProducto = async(req = request, res = response) => {
-
-    const {nombre,descripcion, precio, stock} = req.body
-    const producto = new Producto({nombre,descripcion, precio, stock})
-
-
-    //guardar en DB
-    await producto.save()
-
-    res.json({
-        producto
-    })
-    }
-
-const productosGet = async(req = request, res = response) => {
-
-    const productos = await Promise.all([
-        Producto.find({})
-    ])
-    res.json({
-        productos
-    })
-
-}
-
-const productosDelete = async(req = request, res = response) => {
-        const {id} = req.params
-
-        // cambio de estado de true a false
-
-        const usuario = await Producto.findByIdAndUpdate(id, {estado: false})
-
-        res.json({usuario})
-    }
-
-const productosEditar = async(req, res = response) =>{
-    const { id } = req.params
-    const { precio} = req.body
-    // cambio de precio, el stock cambia despues (ABM compras, ABM clientes)
-    const cambio = await Producto.findOneAndUpdate(id, {precio})
-
-    res.json({cambio})
-
-}
-
-const filtrarProductos = async(req = request, res = response) => {
-
-    const {limite = 3, desde = 0} = req.query
-    const { precio , stock, nombre}  = req.body
-
-    const [total , productos] = await Promise.all([
-        Producto.countDocuments({precio, stock, nombre}),
-        Producto.find({precio, stock, nombre})
-            .skip(Number(desde))
-            .limit(Number(limite))
-    ])
-    res.json({
-        total,
-        productos
-    })
-
-}
 
 
 
@@ -219,12 +150,6 @@ module.exports = {
     usuariosDelete,
     //usuariosPut,
     usuariosPost,
-    usuariosPatch,
     usuariosLogin,
-    passwordForgot,
-    crearProducto,
-    productosGet,
-    productosDelete,
-    productosEditar,
-    filtrarProductos
+    passwordForgot
 }

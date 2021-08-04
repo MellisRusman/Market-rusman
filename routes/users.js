@@ -10,14 +10,8 @@ const {
     usuariosGet,
     usuariosDelete,
     usuariosPost,
-    usuariosPatch,
     usuariosLogin,
     passwordForgot,
-    crearProducto,
-    productosGet,
-    productosDelete,
-    productosEditar,
-    filtrarProductos
 } = require ("../controllers/users")
 
 
@@ -63,74 +57,9 @@ router.put('/login-forgot',[
     validarCampos
 ], passwordForgot)
 
-router.patch('/', usuariosPatch)
 
 
 
-
-
-
-///-------------------------- RUTAS DE PRODUCTOS --------------------------///
-
-// - POST para crear un producto, envio Nombre, descripcion, precio, stock.
-
-router.post('/producto', [
-    check('nombre', 'El nombre no es valido').notEmpty(),
-    check('descripcion', 'La descripcion no es valida').notEmpty(),
-    check('precio', 'El precio no es valido').notEmpty(),
-    check('stock', 'El stock no es valido').notEmpty(),
-    validarCampos
-], crearProducto)
-
-
-// - GET para traer todos los productos
-
-router.get('/producto', productosGet)
-
-
-// - DELETE para borrar un producto
-
-
-router.delete('/producto/:id',[
-    check('id', 'El id no es valido').isMongoId(),
-    check('id').custom(esProductoMongo),
-    validarCampos
-
-],productosDelete)
-
-// - PUT para editar un producto
-
-router.put('/producto/editar/:id',[
-    check('id', 'El id no es valido').isMongoId(),
-    check('id').custom(esProductoMongo),
-    check('newPrice').isEmpty(),
-    validarCampos
-], productosEditar)
-
-
-// - GET para filtrar productos
-
-router.get('/producto/filtrar', filtrarProductos)
-
-
-
-///-------------------------- RUTAS DE PROVEEDORES --------------------------///
-
-
-
-///-------------------------- RUTAS DE CLIENTES --------------------------///
-
-
-
-///-------------------------- RUTAS DE CHEQUES --------------------------///
-
-
-
-///-------------------------- RUTAS DE COMPRAS --------------------------///
-
-
-
-///-------------------------- RUTAS DE VENTAS --------------------------///
 
 
 

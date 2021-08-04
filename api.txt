@@ -30,7 +30,7 @@ Registro: //TERMINADO
 Olvide contrasena: //TERMINADO
 	- PUT mandando email y password, y le cambia a ese email el password
 
-ABM Productos:
+ABM Productos: //TERMINADO
 	- POST para crear un producto, envio Nombre, descripcion, precio, stock.
 	- GET para traer todos los productos
 	- DELETE para borrar un producto
