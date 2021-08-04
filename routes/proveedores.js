@@ -4,8 +4,12 @@ const { check } = require("express-validator")
 
 const { validarCampos } = require('../middlewars/validar-campos')
 
+const {esProveedorMongo} = require('../helpers/db-validators')
+
 const {
-    crearProveedor
+    crearProveedor,
+    proveedorGet,
+    proveedorEditar
 } = require ("../controllers/proveedores")
 
 
@@ -24,7 +28,26 @@ router.post('/proveedor', [
 
 
 
+// - GET para traer todos los proveedores
 
+router.get('/proveedor', proveedorGet)
+
+
+// - PUT para editar un proveedor
+
+
+router.put('/proveedor/editar/:id',[
+    check('id', 'El id no es valido').isMongoId(),
+    check('id').custom(esProveedorMongo),
+    check('razonSocial').notEmpty(),
+    validarCampos
+], proveedorEditar)
+
+
+
+
+// - DEL para borrar un provedor
+// - GET con filtros.
 
 
 

@@ -4,7 +4,7 @@ const { check } = require("express-validator")
 
 
 const { validarCampos } = require('../middlewars/validar-campos')
-const {existeMail, esUsuarioMongo, existeMailPass, esProductoMongo} = require('../helpers/db-validators')
+const {esProductoMongo} = require('../helpers/db-validators')
 
 const {
     crearProducto,

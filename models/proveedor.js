@@ -28,4 +28,4 @@ ProveedorSchema.methods.toJSON = function () {
 
 
 
-module.exports = model( 'Proveedor', ProductoSchema )
+module.exports = model( 'Proveedore', ProveedorSchema )

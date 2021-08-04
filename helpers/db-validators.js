@@ -32,4 +32,11 @@ const esProductoMongo = async(id)=>{
     }
 }
 
-module.exports = { existeMail, esUsuarioMongo, existeMailPass, esProductoMongo}
+const esProveedorMongo = async(id)=>{
+    const existeProv = await Proveedor.findById(id)
+    if (!existeProv){
+        return new Error(`El id: ${id} no existe en la base de datos`)
+    }
+}
+
+module.exports = { existeMail, esUsuarioMongo, existeMailPass, esProductoMongo, esProveedorMongo}
