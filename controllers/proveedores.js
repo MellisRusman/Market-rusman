@@ -54,6 +54,23 @@ const proveedorDelete = async(req = request, res = response) => {
 
 
 
+const filtrarProveedor = async(req = request, res = response) => {
+
+    const {limite = 3, desde = 0} = req.query
+    const {nombre, apellido, razonSocial, estado} = req.body
+
+    const [total , proveedores] = await Promise.all([
+        Proveedor.countDocuments({nombre, apellido, razonSocial, estado}),
+        Proveedor.find({nombre, apellido, razonSocial, estado})
+            .skip(Number(desde))
+            .limit(Number(limite))
+    ])
+    res.json({
+        total,
+        proveedores
+    })
+
+}
 
 
 
@@ -61,5 +78,6 @@ module.exports = {
     crearProveedor,
     proveedorGet,
     proveedorEditar,
-    proveedorDelete
+    proveedorDelete,
+    filtrarProveedor
 }

@@ -10,7 +10,8 @@ const {
     crearProveedor,
     proveedorGet,
     proveedorEditar,
-    proveedorDelete
+    proveedorDelete,
+    filtrarProveedor
 } = require ("../controllers/proveedores")
 
 
@@ -57,7 +58,7 @@ router.delete('/proveedor/:id',[
 
 // - GET con filtros.
 
-
+router.get('/proveedor/filtrar', filtrarProveedor)
 
 
 
