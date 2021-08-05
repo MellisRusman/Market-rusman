@@ -4,8 +4,8 @@ const { validationResult } = require('express-validator');
 
 const crearCompra = async(req = request, res = response) => {
 
-    const {idProveedor, idProducto, cantidad, monto, estado = true} = req.body
-    const compra = new Compra({idProveedor, idProducto, cantidad, monto, estado = true})
+    const {idProveedor, idProducto, cantidad, monto, estado} = req.body
+    const compra = new Compra({idProveedor, idProducto, cantidad, monto, estado})
 
 
     //guardar en DB
@@ -31,9 +31,9 @@ const comprasGet = async(req = request, res = response) => {
 
 const comprasEditar = async(req, res = response) =>{
     const { id } = req.params
-    const {idProveedor, idProducto, cantidad, monto, estado = true} = req.body
+    const {idProveedor, idProducto, cantidad, monto, estado } = req.body
     // cambio de idProveedor, idProducto, cantidad, monto
-    const cambio = await Compra.findOneAndUpdate(id, {idProveedor, idProducto, cantidad, monto, estado = true})
+    const cambio = await Compra.findOneAndUpdate(id, {idProveedor, idProducto, cantidad, monto, estado})
 
     res.json({cambio})
 

@@ -72,6 +72,12 @@ const esChequeMongo = async(id) =>{
         return new Error(`El cheque: ${id} no existe en la base de datos de cheques`)
     }
 }
+const esCompraMongo = async(id) =>{
+    const existeCompra = await Compra.findById(id)
+    if (!existeCompra){
+        return new Error(`La compra: ${id} no existe en la base de datos de compras`)
+    }
+}
 
 
 
@@ -86,5 +92,6 @@ module.exports = {
     // esFechaCheque,
     // esMontoCheque,
     // esRemitenteCheque
+    esCompraMongo
 
 }
