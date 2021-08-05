@@ -33,16 +33,18 @@ const chequesDelete = async(req = request, res = response) => {
 
         // cambio de estado de true a false
 
-        const cheque = await Cliente.findByIdAndUpdate(id, {estado: false})
+        const cheque = await Cheque.findByIdAndUpdate(id, {estado: false})
 
-        res.json({cliente})
+        res.json({cheque})
 }
 
 const chequesEditar = async(req, res = response) =>{
     const { id } = req.params
     const {fecha, monto, remitente} = req.body
-    // cambio de precio, el stock cambia despues ( ABM clientes)
-    const cambio = await Cliente.findOneAndUpdate(id, { fecha, monto, remitente})
+
+    //Cambio de fecha monto o remitente
+
+    const cambio = await Cheque.findOneAndUpdate(id, { fecha, monto, remitente})
 
     res.json({cambio})
 

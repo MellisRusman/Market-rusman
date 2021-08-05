@@ -4,11 +4,10 @@ const { check } = require("express-validator")
 
 const { validarCampos } = require('../middlewars/validar-campos')
 
-const {
-    esChequeMongo,
-    esFechaCheque,
-    esMontoCheque,
-    esRemitenteCheque} = require('../helpers/db-validators')
+const {esChequeMongo}= require('../helpers/db-validators')
+    // esFechaCheque,
+    // esMontoCheque,
+    // esRemitenteCheque
 
 const {
     crearCheque,
@@ -23,7 +22,7 @@ const router = Router()
 
 ///-------------------------- RUTAS DE CHEQUES --------------------------///
 
-// - POST para crear un cliente, envio Nombre, apellido, producto, cantidad y estado
+// - POST para crear un cheque, envio Fecha, monto, remitente
 
 router.post('/cheques', [
     check('fecha', 'La fecha no es valida').notEmpty(),
@@ -34,26 +33,26 @@ router.post('/cheques', [
 
 
 
-// - GET para traer todos los clientes
+// - GET para traer todos los cheques
 
 router.get('/cheques', chequesGet)
 
 
-// - PUT para editar un cliente
+// - PUT para editar un cheque
 
 
 router.put('/cheques/editar/:id',[
     check('id', 'El id no es valido').isMongoId(),
     check('id').custom(esChequeMongo),
-    check('fecha').custom(esFechaCheque),
-    check('monto').custom(esMontoCheque),
-    check('remitente').custom(esRemitenteCheque),
+    //check('fecha', 'El formato no es una fecha').isDate(),
+    check('fecha', 'Falta enviar fecha').notEmpty(),
+    check('remitente', 'Falta enviar remitente').notEmpty(),
     validarCampos
 ], chequesEditar)
 
 
 
-// - DEL para borrar un provedor
+// - DEL para borrar un chque
 
 router.delete('/cheques/:id',[
     check('id', 'El id no es valido').isMongoId(),
