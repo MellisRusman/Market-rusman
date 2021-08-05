@@ -47,4 +47,43 @@ const esClienteMongo = async(id) =>{
         return new Error(`El id: ${id} no existe en la base de datos`)
     }
 }
-module.exports = { existeMail, esUsuarioMongo, existeMailPass, esProductoMongo, esProveedorMongo, esClienteMongo}
+const esFechaCheque = async(fecha) =>{
+    const existeFechaCheque = await Cheque.find(fecha)
+    if (!existeFechaCheque){
+        return new Error(`La fecha: ${fecha} no existe en la base de datos de cheques`)
+    }
+}
+const esMontoCheque = async(monto) =>{
+    const existeMonto = await Cheque.find(monto)
+    if (!existeMonto){
+        return new Error(`El monto: ${monto} no existe en la base de datos de cheques`)
+    }
+}
+const esRemitenteCheque = async(remitente) =>{
+    const existeRemitente = await Cheque.find(remitente)
+    if (!existeRemitente){
+        return new Error(`El remitente: ${remitente} no existe en la base de datos de cheques`)
+    }
+}
+const esChequeMongo = async(id) =>{
+    const existeCheque = await Cheque.findById(id)
+    if (!existeCheque){
+        return new Error(`El cheque: ${id} no existe en la base de datos de cheques`)
+    }
+}
+
+
+
+module.exports = {
+    existeMail,
+    esUsuarioMongo,
+    existeMailPass,
+    esProductoMongo,
+    esProveedorMongo,
+    esClienteMongo,
+    esChequeMongo,
+    esFechaCheque,
+    esMontoCheque,
+    esRemitenteCheque
+
+}

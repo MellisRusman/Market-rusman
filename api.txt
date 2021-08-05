@@ -45,14 +45,14 @@ ABM Proveedores:
 	- DEL para borrar un provedor
 	- GET con filtros.
 
-ABM Clientes:
+ABM Clientes: //Terminado pero con faltas
 	- idem proveedores
 	- POST, se crea una venta, una venta tiene:
 		- id cliente
 		- producto
 		- cantidad que compro
 		Este endpoint tiene que decrementar el stock cando se hace la venta, guardar la venta en la base de datos y la venta se guarda con estado Abierto.
-
+		//Nose como decrementar el stock
 Estados de venta:
 	- PUT de una venta, para poder cambiarle el estado.
 
