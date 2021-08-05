@@ -4,18 +4,18 @@ const { check } = require("express-validator")
 
 const { validarCampos } = require('../middlewars/validar-campos')
 
-const {esChequeMongo}= require('../helpers/db-validators')
+const {esCompraMongo}= require('../helpers/db-validators')
     // esFechaCheque,
     // esMontoCheque,
     // esRemitenteCheque
 
 const {
-    crearCheque,
-    chequesGet,
-    chequesDelete,
-    chequesEditar,
-    filtrarCheques
-} = require ("../controllers/cheques")
+    crearCompra,
+    comprasGet,
+    comprasEditar,
+    comprasDelete,
+    filtrarCompras
+} = require ("../controllers/compras")
 
 
 const router = Router()
