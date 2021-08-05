@@ -57,9 +57,9 @@ Estados de venta:
 	- PUT de una venta, para poder cambiarle el estado.
 
 
-ABM Cheques:
+ABM Cheques: //TERMINADO
 	- idem proveedores (GET, POST, DELETE, PUT).
-	- un cheque es 
+	- un cheque es
 		fecha
 		monto
 		remitente
