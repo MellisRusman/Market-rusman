@@ -19,7 +19,6 @@ class Servidor{
         this.middlewares()
 
         this.usuarioPath = '/api/usuarios'
-        
 
         //Rutas del archivo
         this.rutas()
@@ -42,6 +41,7 @@ class Servidor{
         this.app.use(this.usuarioPath, require('../routes/users'))
         this.app.use(this.usuarioPath, require('../routes/productos'))
         this.app.use(this.usuarioPath, require('../routes/proveedores'))
+        this.app.use(this.usuarioPath, require('../routes/clientes'))
     }
     listen(){
         this.app.listen(this.port, () =>{

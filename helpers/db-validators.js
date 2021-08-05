@@ -1,6 +1,7 @@
 const Usuario = require('../models/usuario')
 const Producto = require('../models/producto')
 const Proveedor = require('../models/proveedor')
+const Cliente = require('../models/cliente')
 
 
 
@@ -26,8 +27,8 @@ const esUsuarioMongo = async(id)=>{
     }
 }
 
-const esProductoMongo = async(id)=>{
-    const existeProd = await Producto.findById(id)
+const esProductoMongo = async(nombre)=>{
+    const existeProd = await Producto.find({nombre})
     if (!existeProd){
         return new Error(`El id: ${id} no existe en la base de datos`)
     }
@@ -40,4 +41,10 @@ const esProveedorMongo = async(id) => {
     }
 }
 
-module.exports = { existeMail, esUsuarioMongo, existeMailPass, esProductoMongo, esProveedorMongo}
+const esClienteMongo = async(id) =>{
+    const existeCliente = await Cliente.findById(id)
+    if (!existeCliente){
+        return new Error(`El id: ${id} no existe en la base de datos`)
+    }
+}
+module.exports = { existeMail, esUsuarioMongo, existeMailPass, esProductoMongo, esProveedorMongo, esClienteMongo}

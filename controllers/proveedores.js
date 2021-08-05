@@ -1,6 +1,5 @@
 const {request , response} = require('express');
 const Proveedor = require('../models/proveedor');
-const bcryptjs = require("bcryptjs");
 const { validationResult } = require('express-validator');
 
 const crearProveedor = async(req = request, res = response) => {
