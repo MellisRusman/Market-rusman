@@ -43,6 +43,7 @@ class Servidor{
         this.app.use(this.usuarioPath, require('../routes/proveedores'))
         this.app.use(this.usuarioPath, require('../routes/clientes'))
         this.app.use(this.usuarioPath, require('../routes/cheques'))
+        this.app.use(this.usuarioPath, require('../routes/compras'))
     }
     listen(){
         this.app.listen(this.port, () =>{
