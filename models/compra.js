@@ -17,6 +17,10 @@ const CompraSchema = Schema({
     monto:{
         type:String,
         required:[true,'El monto a pagar es obligatorio'],
+    },
+    estado:{
+        type:Boolean,
+        default:true
     }
 
 })

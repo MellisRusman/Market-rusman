@@ -20,7 +20,7 @@ const {
 
 const router = Router()
 
-///-------------------------- RUTAS DE CHEQUES --------------------------///
+///-------------------------- RUTAS DE COMPRAS --------------------------///
 
 // - POST para crear una compra, envio id Proveedor, id Producto, cantidad, monto
 
