@@ -45,7 +45,7 @@ ABM Proveedores:
 	- DEL para borrar un provedor
 	- GET con filtros.
 
-ABM Clientes: //Terminado pero con faltas
+ABM Clientes: //Arreglar editar y filtrar clientes
 	- idem proveedores
 	- POST, se crea una venta, una venta tiene:
 		- id cliente
@@ -57,14 +57,14 @@ Estados de venta:
 	- PUT de una venta, para poder cambiarle el estado.
 
 
-ABM Cheques: //TERMINADO
+ABM Cheques: //Error en filtrar cheques
 	- idem proveedores (GET, POST, DELETE, PUT).
 	- un cheque es
 		fecha
 		monto
 		remitente
 
-ABM Compras:
+ABM Compras: //Error en editar, borrar, filtrar compra
 	- POST para comprar producto
 	una compra tiene:
 		- id provedor
