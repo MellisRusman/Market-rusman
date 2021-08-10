@@ -3,6 +3,8 @@ const Usuario = require('../models/usuario');
 const Producto = require('../models/producto');
 const bcryptjs = require("bcryptjs");
 const { validationResult } = require('express-validator');
+const { Schema } = require('mongoose');
+const { findOneAndReplace } = require('../models/usuario');
 
 
 
@@ -22,34 +24,10 @@ const usuariosGet = async(req = request, res = response) => {
 
 }
 
-// const usuariosPut = async(req , res = response) => {
-//     let resultado = false
-//     const {id} = req.params;
-//     const usuarios = await Promise.all([
-//         Usuario.find({})
-//     ])
-//     if (usuario){
-//         msg:"El usuario es correcto"
-//     }
-//     const {_id, password,correo, ...resto} = req.body;
-//     if (password){
-//         const salt = bcryptjs.genSaltSync();
-//         resto.password = bcryptjs.hashSync(password, salt)
-//     }
-//     if (Usuario.correo === correo ){
-//         let resultado = true
-//     }
-//     const usuario = await Usuario.findByIdAndUpdate(id , resto)
-//     res.json(usuario, resultado )
-// }
-
 const usuariosPost = async(req = request, res = response) => {
 
     const { nombre,apellido, telefono, correo, password} = req.body
     const usuario = new Usuario({nombre,apellido, telefono, correo, password})
-    //verificar si el correo existe
-
-
     //encriptar la contrasena
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync(password, salt)
@@ -60,35 +38,38 @@ const usuariosPost = async(req = request, res = response) => {
     res.json({
         usuario
     })
-    }
+}
 
 const usuariosLogin = async(req = request , res = response) => {
 
-    let resultado = 'Error'
+    let resultado = ''
+    let resultado2 = ''
     const {correo, password} = req.body
+    const salt = bcryptjs.genSaltSync();
+    contra = bcryptjs.hashSync(password, salt)
 
-
-    const usuario = Usuario.findOne({correo}, {password})
-
-
-    if (usuario){
-        if(password){
-            const salt = bcryptjs.genSaltSync();
-            contra = bcryptjs.hashSync(password, salt)
-        }else{
-            resultado = await new Error(`Error`)
+    const pass = Usuario.findOne({contra})
+    const mail = Usuario.findOne({correo})
+    try {
+        if (contra === pass){
+            resultado = 'Ok pass'
         }
-        resultado = 'OK'
+        if (mail === correo){
+            resultado2 = 'Ok correo'
+        }
+        // else{
+        //     resultado = 'Error pass'
+        // }
+    } catch (error) {
+        throw new Error(`${error}`)
     }
 
     res.json({
-        contra,
-        resultado
+        resultado,
+        resultado2
     })
 
 }
-
-
 
 const usuariosDelete = async(req, res = response) => {
 
@@ -104,41 +85,20 @@ const usuariosDelete = async(req, res = response) => {
 }
 
 
-
+//no funciona
 const passwordForgot = async(req, res = response) =>{
-    const {correo, password} = req.body
-
+    const {_id, password,correo, ...resto} = req.body;
+    const usuario = Usuario.findOne({correo})
     if (password){
         const salt = bcryptjs.genSaltSync();
-        contra = bcryptjs.hashSync(password, salt)
+        usuario.resto.password = bcryptjs.hashSync(password, salt)
     }
 
-    const cambio = await Usuario.findOneAndUpdate(correo, {password: contra})
-
-    res.json({cambio})
-
+    const cambio = await findOneAndReplace({password})
+    res.json(
+        {cambio}
+        )
 }
-
-
-
-//------------------------ FUNCIONES DE PRODUCTOS ------------------------//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -148,7 +108,6 @@ const passwordForgot = async(req, res = response) =>{
 module.exports = {
     usuariosGet,
     usuariosDelete,
-    //usuariosPut,
     usuariosPost,
     usuariosLogin,
     passwordForgot

@@ -53,11 +53,11 @@ const chequesEditar = async(req, res = response) =>{
 const filtrarCheques = async(req = request, res = response) => {
 
     const {limite = 3, desde = 0} = req.query
-    const {__v, _id, ...resto} = req.body
+    const {fecha, monto, remitente, estado} = req.body
 
     const [total , cheques] = await Promise.all([
-        Cheque.countDocuments({resto}),
-        Cheque.find({resto})
+        Cheque.countDocuments({fecha, monto, remitente, estado}),
+        Cheque.find({fecha, monto, remitente, estado})
             .skip(Number(desde))
             .limit(Number(limite))
     ])

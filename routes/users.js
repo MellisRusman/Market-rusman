@@ -53,7 +53,6 @@ router.delete('/:id',[
 router.put('/login-forgot',[
     check('password', 'El password no es valido').isLength({min: 6 }),
     check('correo', 'El correo no es valido').isEmail(),
-    check('correo').custom(existeMailPass),
     validarCampos
 ], passwordForgot)
 

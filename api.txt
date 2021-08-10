@@ -21,7 +21,7 @@ Una vez adentro:
 
 Endpoints:
 
-Login:
+Login: //No tira error al poner una contra que no corresponde
 	- POST enviando email y pass y devuelve OK o error (si quieren pueden devovler la descricion del error).
 
 Registro: //TERMINADO
@@ -38,7 +38,7 @@ ABM Productos: //TERMINADO
 	- GET para traerme todos los productos filtrados por todos los parametors (ej quiero los productos que tienen en el nombre
 	"coca", en la descripcion tiene "gaseosa")
 
-ABM Proveedores:
+ABM Proveedores: //TERMINADO
 	- POST para crear un proveedor, nombre, apellido, razon social.
 	- GET para traer todos los proveedores
 	- PUT para editar un proveedor
@@ -57,7 +57,7 @@ Estados de venta:
 	- PUT de una venta, para poder cambiarle el estado.
 
 
-ABM Cheques: //Error en filtrar cheques
+ABM Cheques: //TERMINADO
 	- idem proveedores (GET, POST, DELETE, PUT).
 	- un cheque es
 		fecha
