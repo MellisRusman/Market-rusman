@@ -50,6 +50,8 @@ const usuariosLogin = async(req = request , res = response) => {
 
     const pass = Usuario.findOne({contra})
     const mail = Usuario.findOne({correo})
+    console.log(pass.nombre)
+    console.log(pass.toJSON())
     try {
         if (contra === pass){
             resultado = 'Ok pass'
@@ -88,13 +90,14 @@ const usuariosDelete = async(req, res = response) => {
 //no funciona
 const passwordForgot = async(req, res = response) =>{
     const {_id, password,correo, ...resto} = req.body;
-    const usuario = Usuario.findOne({correo})
-    if (password){
-        const salt = bcryptjs.genSaltSync();
-        usuario.resto.password = bcryptjs.hashSync(password, salt)
-    }
+   
+    const salt = bcryptjs.genSaltSync();
+    const nuevoPass = bcryptjs.hashSync(password, salt)
+   
+    const filter = {correo}
+    const update = {password : nuevoPass, nombre: 'Jode'}
 
-    const cambio = await findOneAndReplace({password})
+    const cambio = await Usuario.findOneAndUpdate(filter, update)
     res.json(
         {cambio}
         )
