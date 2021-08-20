@@ -28,7 +28,7 @@ const productosGet = async(req = request, res = response) => {
     })
 
 }
-
+/*
 const productosDelete = async(req = request, res = response) => {
         const {id} = req.params
 
@@ -38,14 +38,61 @@ const productosDelete = async(req = request, res = response) => {
 
         res.json({usuario})
     }
+*/
 
-const productosEditar = async(req, res = response) =>{
+
+//CHRIS: ACA USTEDES LE CAMBIARON EL ESTADO, ESO ESTA BIEN, PERO EN ESTE CASO, EL ESTADO ERA PARA OTRA COSA DENTRO DEL SISTEMA.
+// EN ESTE CASO TRATEMOS DE BORRARLO POR COMPLETO Y QUE DESAPAREZCA.
+const productosDelete = async(req = request, res = response) => {
+        const {id} = req.params
+
+        const query = { "_id": id };
+
+        return Producto.findOneAndDelete(query)
+            .then(productoBorrado => {
+                if(productoBorrado) {
+                console.log(`Successfully deleted document that had the form: ${productoBorrado}.`)
+                } else {
+                console.log("No document matches the provided query.")
+                }
+                res.json(productoBorrado)
+            })
+            .catch(err => console.error(`Failed to find and delete document: ${err}`))
+
+            
+    }
+
+
+//CHRIS: ESTE NO ME ANDABA ASI Q LO HICE DE NUEVO.
+/*const productosEditar = async(req, res = response) =>{
     const { id } = req.params
     const { precio} = req.body
     // cambio de precio, el stock cambia despues (ABM compras, ABM clientes)
     const cambio = await Producto.findOneAndUpdate(id, {precio})
 
     res.json({cambio})
+
+}*/
+
+const productosEditar = async(req, res = response) =>{
+    const { id } = req.params
+    const { precio} = req.body
+
+    console.log(precio)
+    const query = { "_id": id };
+
+
+
+    return Producto.findOneAndUpdate(query, {precio: precio})
+        .then(productoEditado => {
+            if(productoEditado) {
+            console.log(`Successfully updated document: ${productoEditado}.`)
+            } else {
+            console.log("No document matches the provided query.")
+            }
+            res.json(productoEditado)
+        })
+        .catch(err => console.error(`Failed to find and update document: ${err}`))
 
 }
 

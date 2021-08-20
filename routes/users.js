@@ -25,7 +25,7 @@ const router = Router()
 
 router.get('/', usuariosGet)
 
-
+// FUNCIONA BIEN.
 router.post('/',[
     check('nombre', 'El nombre no es valido').notEmpty(),
     check('password', 'El password no es valido').isLength({min: 6 }),
