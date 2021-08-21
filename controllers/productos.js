@@ -48,16 +48,16 @@ const productosDelete = async(req = request, res = response) => {
 
         const query = { "_id": id };
 
-        return Producto.findOneAndDelete(query)
+        await Producto.findOneAndDelete(query)
             .then(productoBorrado => {
                 if(productoBorrado) {
-                console.log(`Successfully deleted document that had the form: ${productoBorrado}.`)
+                console.log(`Documento eliminado con éxito: ${productoBorrado}.`)
                 } else {
-                console.log("No document matches the provided query.")
+                console.log("Ningún documento coincide con la consulta proporcionada.")
                 }
                 res.json(productoBorrado)
             })
-            .catch(err => console.error(`Failed to find and delete document: ${err}`))
+            .catch(err => console.error(`Error al buscar y eliminar el documento: ${err}`))
 
             
     }
@@ -83,16 +83,16 @@ const productosEditar = async(req, res = response) =>{
 
 
 
-    return Producto.findOneAndUpdate(query, {precio: precio})
+    await Producto.findOneAndUpdate(query, {precio: precio})
         .then(productoEditado => {
             if(productoEditado) {
-            console.log(`Successfully updated document: ${productoEditado}.`)
+            console.log(`Documento actualizado con exito: ${productoEditado}.`)
             } else {
-            console.log("No document matches the provided query.")
+            console.log("Ningún documento coincide con la consulta proporcionada.")
             }
             res.json(productoEditado)
         })
-        .catch(err => console.error(`Failed to find and update document: ${err}`))
+        .catch(err => console.error(`Error al buscar y actualizar el documento: ${err}`))
 
 }
 

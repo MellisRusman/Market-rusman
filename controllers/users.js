@@ -1,6 +1,5 @@
 const {request , response} = require('express');
 const Usuario = require('../models/usuario');
-const Producto = require('../models/producto');
 const bcryptjs = require("bcryptjs");
 const { validationResult } = require('express-validator');
 const { Schema } = require('mongoose');
@@ -76,25 +75,23 @@ const usuariosLogin = async(req = request , res = response) => {
 //SAQUE LA ENCRIPTACION.
 const usuariosLogin = async(req = request , res = response) => {
 
-    let resultado = ''
-    let resultado2 = ''
     const {correo, password} = req.body
 
     
     //CHRIS: CAMBIE BASTANTE ESTO CON RESPESTO A SU FUNCION, LO ENCONTRE EN GOOGLE.
     Usuario.findOne({"correo":correo}).then(result => {
         if(result.password == password){
-            console.log("aca1")
+            console.log("Acesso permitido")
             res.json({
                 result
             })
         }else{
-            console.log("aca2")
+            console.log("Accesso denegado")
             res.json({
-                "Error": "Usuario no encontrado"
+                "Error" : "Usuario no encontrado"
             })
         }
-    }).catch(err => console.error(`algo salio mal`));
+    }).catch(err => console.error(`Algo salio mal`, err));
     
 
 }
@@ -132,25 +129,23 @@ const usuariosDelete = async(req, res = response) => {
 
 //CHRIS: SACO EL ENCRIPTAR PASSWORD.
 const passwordForgot = async(req, res = response) =>{
-    const {_id, password,correo, ...resto} = req.body;
+    const {_id, password,correo} = req.body;
 
-    let nuevoPass = password
-   
     const query = { "correo": correo };
-    const update = {password : nuevoPass}
+    const update = {password : password}
 
-    return Usuario.findOneAndUpdate(query, update)
+    await Usuario.findOneAndUpdate(query, update)
         .then(usuarioActualizado => {
             if(usuarioActualizado) {
-                console.log(`Successfully updated document: ${usuarioActualizado}.`)
+                console.log(`Documento actualizado con exito: ${usuarioActualizado}.`)
             } else {
-                console.log("No document matches the provided query.")
+                console.log("Ningún documento coincide con la consulta proporcionada.")
             }
             res.json(
                 usuarioActualizado
                 )
         })
-        .catch(err => console.error(`Failed to find and update document: ${err}`))
+        .catch(err => console.error(`Error al buscar y actualizar el documento: ${err}`))
 }
 
 

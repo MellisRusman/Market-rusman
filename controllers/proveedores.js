@@ -31,25 +31,48 @@ const proveedorGet = async(req = request, res = response) => {
 
 const proveedorEditar = async(req, res = response) =>{
     const { id } = req.params
-    const { nombre , apellido, razonSocial, estado = true} = req.body
-    // cambio de nombre o appelido del provedor o razon social
-    const cambio = await Proveedor.findOneAndUpdate(id, { nombre , apellido, razonSocial, estado})
+    const { nombre, apellido, razonSocial} = req.body
 
-    res.json({cambio})
+    console.log(nombre, apellido, razonSocial)
+    const query = { "_id": id };
+
+
+
+    await Proveedor.findOneAndUpdate(query, {nombre: nombre, apellido: apellido, razonSocial: razonSocial})
+        .then(proveedorEditado => {
+            if(proveedorEditado) {
+            console.log(`Documento actualizado con exito: ${proveedorEditado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(proveedorEditado)
+        })
+        .catch(err => console.error(`Error al buscar y actualizar el documento: ${err}`))
 
 }
+
 
 
 
 const proveedorDelete = async(req = request, res = response) => {
+
     const {id} = req.params
 
-    // cambio de estado de true a false
+    const query = { "_id": id };
 
-    const proveedor = await Proveedor.findByIdAndUpdate(id, {estado: false})
+    await Proveedor.findOneAndDelete(query)
+        .then(proveedorBorrado => {
+            if(proveedorBorrado) {
+            console.log(`Documento eliminado con éxito: ${proveedorBorrado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(proveedorBorrado)
+        })
+        .catch(err => console.error(`Error al buscar y eliminar el documento: ${err}`))
 
-    res.json({proveedor})
-}
+
+    }
 
 
 
@@ -59,8 +82,8 @@ const filtrarProveedor = async(req = request, res = response) => {
     const {nombre, apellido, razonSocial, estado} = req.body
 
     const [total , proveedores] = await Promise.all([
-        Proveedor.countDocuments({nombre, apellido, razonSocial, estado}),
-        Proveedor.find({nombre, apellido, razonSocial, estado})
+        Proveedor.countDocuments({nombre, apellido, razonSocial}),
+        Proveedor.find({nombre, apellido, razonSocial})
             .skip(Number(desde))
             .limit(Number(limite))
     ])
