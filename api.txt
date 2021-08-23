@@ -77,3 +77,7 @@ ABM Compras: //Error en editar, borrar, filtrar compra
 Listado de compras:
 	- GET de compras
 	- poder filtrarlas (GET)
+
+
+
+//TODO TERMINADO
