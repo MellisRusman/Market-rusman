@@ -31,11 +31,23 @@ const comprasGet = async(req = request, res = response) => {
 
 const comprasEditar = async(req, res = response) =>{
     const { id } = req.params
-    const {idProveedor, idProducto, cantidad, monto, estado } = req.body
-    // cambio de idProveedor, idProducto, cantidad, monto
-    const cambio = await Compra.findOneAndUpdate(id, {idProveedor, idProducto, cantidad, monto, estado})
+    const { idProveedor, idProducto, cantidad, monto} = req.body
 
-    res.json({cambio})
+    console.log(idProveedor, idProducto, cantidad, monto)
+    const query = { "_id": id };
+
+
+
+    await Compra.findOneAndUpdate(query, {idProveedor: idProveedor, idProducto: idProducto, cantidad: cantidad, monto: monto})
+        .then(compraEditado => {
+            if(compraEditado) {
+            console.log(`Documento actualizado con exito: ${compraEditado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(compraEditado)
+        })
+        .catch(err => console.error(`Error al buscar y actualizar el documento: ${err}`))
 
 }
 

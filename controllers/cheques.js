@@ -48,13 +48,23 @@ const chequesDelete = async(req = request, res = response) => {
 
 const chequesEditar = async(req, res = response) =>{
     const { id } = req.params
-    const {fecha, monto, remitente} = req.body
+    const { fecha, monto, remitente} = req.body
 
-    //Cambio de fecha monto o remitente
+    console.log( fecha, monto, remitente)
+    const query = { "_id": id };
 
-    const cambio = await Cheque.findOneAndUpdate(id, { fecha, monto, remitente})
 
-    res.json({cambio})
+
+    await Cheque.findOneAndUpdate(query, {fecha: fecha, monto: monto, remitente: remitente})
+        .then(chequeEditado => {
+            if(chequeEditado) {
+            console.log(`Documento actualizado con exito: ${chequeEditado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(chequeEditado)
+        })
+        .catch(err => console.error(`Error al buscar y actualizar el documento: ${err}`))
 
 }
 

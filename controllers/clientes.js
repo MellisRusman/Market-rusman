@@ -49,13 +49,26 @@ const clientesDelete = async(req = request, res = response) => {
 
 const clientesEditar = async(req, res = response) =>{
     const { id } = req.params
-    const {cantidad} = req.body
-    // cambio de precio, el stock cambia despues ( ABM clientes)
-    const cambio = await Cliente.findOneAndUpdate(id, { cantidad})
+    const { nombre, apellido, producto, cantidad, estadoDeVenta} = req.body
 
-    res.json({cambio})
+    console.log(nombre, apellido, producto, cantidad, estadoDeVenta)
+    const query = { "_id": id };
+
+
+
+    await Cliente.findOneAndUpdate(query, {nombre:nombre, apellido: apellido , producto: producto , cantidad: cantidad , estadoDeVenta: estadoDeVenta })
+        .then(clienteEditado => {
+            if(clienteEditado) {
+            console.log(`Documento actualizado con exito: ${clienteEditado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(clienteEditado)
+        })
+        .catch(err => console.error(`Error al buscar y actualizar el documento: ${err}`))
 
 }
+
 
 const filtrarClientes = async(req = request, res = response) => {
 

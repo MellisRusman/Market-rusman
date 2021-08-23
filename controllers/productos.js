@@ -76,14 +76,14 @@ const productosDelete = async(req = request, res = response) => {
 
 const productosEditar = async(req, res = response) =>{
     const { id } = req.params
-    const { precio} = req.body
+    const { nombre, descripcion, precio, stock} = req.body
 
-    console.log(precio)
+    console.log(nombre, descripcion, precio, stock)
     const query = { "_id": id };
 
 
 
-    await Producto.findOneAndUpdate(query, {precio: precio})
+    await Producto.findOneAndUpdate(query, {nombre: nombre, descripcion: descripcion, precio: precio, stock: stock})
         .then(productoEditado => {
             if(productoEditado) {
             console.log(`Documento actualizado con exito: ${productoEditado}.`)
