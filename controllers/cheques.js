@@ -29,13 +29,21 @@ const chequesGet = async(req = request, res = response) => {
 }
 
 const chequesDelete = async(req = request, res = response) => {
-        const {id} = req.params
+    const {id} = req.params
 
-        // cambio de estado de true a false
+    const query = { "_id": id };
 
-        const cheque = await Cheque.findByIdAndUpdate(id, {estado: false})
+    await Cheque.findOneAndDelete(query)
+        .then(chequeBorrado => {
+            if(chequeBorrado) {
+            console.log(`Documento eliminado con éxito: ${chequeBorrado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(chequeBorrado)
+        })
+        .catch(err => console.error(`Error al buscar y eliminar el documento: ${err}`))
 
-        res.json({cheque})
 }
 
 const chequesEditar = async(req, res = response) =>{

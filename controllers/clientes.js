@@ -29,13 +29,22 @@ const clientesGet = async(req = request, res = response) => {
 }
 
 const clientesDelete = async(req = request, res = response) => {
-        const {id} = req.params
+    const {id} = req.params
 
-        // cambio de estado de true a false
+    const query = { "_id": id };
 
-        const cliente = await Cliente.findByIdAndUpdate(id, {estado: false})
+    await Cliente.findOneAndDelete(query)
+        .then(clienteBorrado => {
+            if(clienteBorrado) {
+            console.log(`Documento eliminado con éxito: ${clienteBorrado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(clienteBorrado)
+        })
+        .catch(err => console.error(`Error al buscar y eliminar el documento: ${err}`))
 
-        res.json({cliente})
+        
 }
 
 const clientesEditar = async(req, res = response) =>{

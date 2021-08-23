@@ -96,17 +96,23 @@ const usuariosLogin = async(req = request , res = response) => {
 
 }
 
-const usuariosDelete = async(req, res = response) => {
-
+const usuariosDelete = async(req = request, res = response) => {
     const {id} = req.params
 
-    //Borrado fisico
+    const query = { "_id": id };
 
-    //const usuario = await Usuario.findByIdAndDelete(id)
+    await Usuario.findOneAndDelete(query)
+        .then(usuarioBorrado => {
+            if(usuarioBorrado) {
+            console.log(`Documento eliminado con éxito: ${usuarioBorrado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(usuarioBorrado)
+        })
+        .catch(err => console.error(`Error al buscar y eliminar el documento: ${err}`))
 
-    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false})
-
-    res.json({usuario})
+        
 }
 
 

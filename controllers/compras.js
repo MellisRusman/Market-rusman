@@ -44,11 +44,20 @@ const comprasEditar = async(req, res = response) =>{
 const comprasDelete = async(req = request, res = response) => {
     const {id} = req.params
 
-    // cambio de estado de true a false
+    const query = { "_id": id };
 
-    const compra = await Compra.findByIdAndUpdate(id, {estado: false})
+    await Compra.findOneAndDelete(query)
+        .then(compraBorrado => {
+            if(compraBorrado) {
+            console.log(`Documento eliminado con éxito: ${compraBorrado}.`)
+            } else {
+            console.log("Ningún documento coincide con la consulta proporcionada.")
+            }
+            res.json(compraBorrado)
+        })
+        .catch(err => console.error(`Error al buscar y eliminar el documento: ${err}`))
 
-    res.json({compra})
+        
 }
 
 
